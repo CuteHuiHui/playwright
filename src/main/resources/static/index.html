@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cross-Domain Redirect with Cookie</title>
+</head>
+<body>
+<button id="redirectButton">访问目标页面</button>
+
+<script>
+    // 获取当前 URL 中的查询参数
+    function getUrlParam(paramName) {
+        const search = window.location.search || window.location.hash.split('?')[1] || '';
+        const params = new URLSearchParams(search);
+        return params.get(paramName);
+    }
+
+    document.getElementById('redirectButton').addEventListener('click', function() {
+        const token = getUrlParam('token');
+        let proxyUrl = '/login';
+
+        if (token) {
+            proxyUrl += `?token=${encodeURIComponent(token)}`;
+        }
+
+        window.open(proxyUrl, '_blank');
+    });
+</script>
+</body>
+</html>
